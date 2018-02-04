@@ -12,7 +12,7 @@
 #define DB_FILENAME ".notesgtk.sqlite3"
 
 #define DB_NOTES_TABLE_CREATE                                                  \
-  "CREATE TABLE IF NOT EXISTS notes ("                                        \
+  "CREATE TABLE IF NOT EXISTS notes ("                                         \
   "id integer PRIMARY KEY,"                                                    \
   "note text NOT NULL,"                                                        \
   "x integer,"                                                                 \
@@ -22,7 +22,9 @@
   ");"
 #define DB_NOTES_TABLE_DROP "DROP TABLE IF EXISTS notes;"
 #define DB_NOTES_TABLE_SELECT "SELECT * FROM notes;"
-#define DB_NOTES_TABLE_INSERT "INSERT INTO notes VALUES (%d, %s);"
+#define DB_NOTES_TABLE_INSERT                                                  \
+  "INSERT INTO notes "                                                         \
+  "VALUES (%d, %s, %d, %d, %d, %d);"
 
 #define ERROR_ENV_HOME "Cannot find home path"
 

@@ -13,8 +13,8 @@ bool initDB(notesDB *db) {
     replaceErrMsg(db, ERROR_ENV_HOME, false);
     return false;
   }
-  db->path = (char *)malloc(
-      (strlen(home) + 1 + strlen(DB_FILENAME) + 1) * sizeof(char));
+  db->path = (char *)malloc((strlen(home) + 1 + strlen(DB_FILENAME) + 1) *
+                            sizeof(char));
   strcpy(db->path, home);
   strcat(db->path, "/");
   strcat(db->path, DB_FILENAME);
@@ -22,7 +22,7 @@ bool initDB(notesDB *db) {
 
   if ((db->lastRC = sqlite3_open(db->path, &db->handle))) {
     db->errFunc = __func__;
-    replaceErrMsg(db, sqlite3_errmsg(db->handle), false);
+    replaceErrMsg(db, (char *) sqlite3_errmsg(db->handle), false);
     return closeDB(db);
   }
 
@@ -50,7 +50,14 @@ void printLastDBError(notesDB *db) {
           db->errFunc, db->errMsg, db->lastRC);
 }
 
-gtkNote *loadNotes(notesDB *db) { return NULL; }
+gtkNote *loadNotes(notesDB *db) {
+  if (!db)
+    return false;
+  gtkNote *notes = NULL;
+  // callback has to handle mem_ory for this nullterminated array
+  // sqlite3_exec(db->handle, DB_NOTES_TABLE_SELECT, callback, ...);
+  return notes;
+}
 
 static bool createStructure(notesDB *db) {
   char *err = NULL;
