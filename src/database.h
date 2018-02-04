@@ -38,7 +38,7 @@ typedef struct notesDB {
 
 bool initDB(notesDB *db);
 bool closeDB(notesDB *db);
-gtkNote *loadNotes(notesDB *db);
+gtkNoteArray loadNotes(notesDB *db);
 void printLastDBError(notesDB *db);
 
 #endif

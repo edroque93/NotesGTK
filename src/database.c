@@ -2,6 +2,7 @@
 
 static bool createStructure(notesDB *db);
 static void replaceErrMsg(notesDB *db, char *newMsg, bool toBeFreed);
+static int loadNotesCallback(void *param, int argc, char **data, char **col);
 
 bool initDB(notesDB *db) {
   if (!db)
@@ -21,7 +22,7 @@ bool initDB(notesDB *db) {
 
   if ((db->lastRC = sqlite3_open(db->path, &db->handle))) {
     db->errFunc = __func__;
-    replaceErrMsg(db, (char *) sqlite3_errmsg(db->handle), false);
+    replaceErrMsg(db, (char *)sqlite3_errmsg(db->handle), false);
     return closeDB(db);
   }
 
@@ -49,13 +50,40 @@ void printLastDBError(notesDB *db) {
           db->errFunc, db->errMsg, db->lastRC);
 }
 
-gtkNote *loadNotes(notesDB *db) {
+gtkNoteArray loadNotes(notesDB *db) {
+  gtkNoteArray notes = {.length = 0, .array = NULL};
+
   if (!db)
-    return false;
-  gtkNote *notes = NULL;
-  // callback has to handle mem_ory for this nullterminated array
-  // sqlite3_exec(db->handle, DB_NOTES_TABLE_SELECT, callback, ...);
+    return notes;
+
+  char *err = NULL;
+
+  sqlite3_exec(db->handle, DB_NOTES_TABLE_SELECT, loadNotesCallback, &notes,
+               &err);
   return notes;
+}
+
+static int loadNotesCallback(void *param, int argc, char **data, char **col) {
+  gtkNoteArray *notes = (gtkNoteArray *)param;
+
+  note *nNote = (note *)malloc(sizeof(note));
+  gtkNote *gNote = (gtkNote *)malloc(sizeof(gtkNote));
+
+  notes->array[notes->length++] = gNote;
+  notes->array[notes->length] = NULL;
+
+  size_t length = strlen(data[1]);
+  nNote->text = (char *)malloc((length + 1) * sizeof(char));
+  nNote->length = length;
+  strcpy(nNote->text, data[1]);
+
+  gNote->note = nNote;
+  gNote->x = atoi(data[2]);
+  gNote->y = atoi(data[3]);
+  gNote->width = atoi(data[4]);
+  gNote->height = atoi(data[5]);
+
+  return 0;
 }
 
 static bool createStructure(notesDB *db) {
