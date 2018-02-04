@@ -6,9 +6,9 @@ int main(int argc, char **argv) {
 
   if (!initDB(&db)) {
     printLastDBError(&db);
+  } else {
+    closeDB(&db);
   }
-
-  closeDB(&db);
 
   return 0;
 }
