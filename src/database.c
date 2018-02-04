@@ -18,7 +18,6 @@ bool initDB(notesDB *db) {
   strcpy(db->path, home);
   strcat(db->path, "/");
   strcat(db->path, DB_FILENAME);
-  strcat(db->path, "\0");
 
   if ((db->lastRC = sqlite3_open(db->path, &db->handle))) {
     db->errFunc = __func__;
