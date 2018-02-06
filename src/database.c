@@ -69,6 +69,8 @@ static int loadNotesCallback(void *param, int argc, char **data, char **col) {
   note *nNote = (note *)malloc(sizeof(note));
   gtkNote *gNote = (gtkNote *)malloc(sizeof(gtkNote));
 
+  notes->array = (gtkNote **)realloc(notes->array,
+                                     (notes->length + 2) * sizeof(gtkNote *));
   notes->array[notes->length++] = gNote;
   notes->array[notes->length] = NULL;
 
