@@ -23,7 +23,7 @@ $(EXE): $(OBJECTS)
 obj/%.o: src/%.c
 	@echo Compiling $<
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) -c $(WARNINGS) -o $@ $<
+	@$(CC) $(CFLAGS) -c $(WARNINGS) -MMD -o $@ $<
 
 clean:
 	@rm -rf $(EXE) obj/
@@ -31,3 +31,5 @@ clean:
 format:
 	@echo Formatting files
 	@$(FORMAT) -i $(SOURCES) $(HEADERS)
+
+-include obj/*.d
