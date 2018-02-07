@@ -1,6 +1,7 @@
 #ifndef NOTES_H
 #define NOTES_H
 
+#include "stdbool.h"
 #include "stdint.h"
 #include "stdio.h"
 #include "stdlib.h"
@@ -15,6 +16,7 @@ typedef struct gtkNote {
   note *note;
   uint32_t width, height;
   uint32_t x, y;
+  bool valid;
 } gtkNote;
 
 typedef struct gtkNoteArray {

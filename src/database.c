@@ -84,6 +84,7 @@ static int loadNotesCallback(void *param, int argc, char **data, char **col) {
   gNote->y = atoi(data[3]);
   gNote->width = atoi(data[4]);
   gNote->height = atoi(data[5]);
+  gNote->valid = true;
 
   return 0;
 }
