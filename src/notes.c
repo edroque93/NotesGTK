@@ -14,9 +14,7 @@ void freeGTKNote(gtkNote *f) {
   free(f->note);
 }
 
-void freeNote(note *f) {
-  free(f->text);
-}
+void freeNote(note *f) { free(f->text); }
 
 void printGTKNoteArray(gtkNoteArray *f) {
   uint32_t index = 0;
