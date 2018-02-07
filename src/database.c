@@ -79,6 +79,7 @@ static int loadNotesCallback(void *param, int argc, char **data, char **col) {
   nNote->length = length;
   strcpy(nNote->text, data[1]);
 
+  gNote->id = atoi(data[0]);
   gNote->note = nNote;
   gNote->x = atoi(data[2]);
   gNote->y = atoi(data[3]);

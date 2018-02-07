@@ -13,6 +13,7 @@ typedef struct note {
 
 typedef struct gtkNote {
   uint32_t wHandle;
+  int64_t id;
   note *note;
   uint32_t width, height;
   uint32_t x, y;
