@@ -8,7 +8,17 @@ int main(int argc, char **argv) {
   if (!initDB(&db)) {
     printLastDBError(&db);
   } else {
+    gtkNote g;
+    note n;
+    n.text = "asd asd";
+    n.length = 7;
+    g.note = &n;
+    g.x = 0;
+    g.y = 0;
+    g.width = 0;
+    g.height = 0;
     gtkNoteArray array = loadNotes(&db);
+    addGTKNote(&array, &g);
     printGTKNoteArray(&array);
     freeGTKNoteArray(&array);
     closeDB(&db);

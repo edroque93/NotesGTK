@@ -28,8 +28,11 @@ typedef struct gtkNoteArray {
 void freeGTKNoteArray(gtkNoteArray *f);
 void freeGTKNote(gtkNote *f);
 void freeNote(note *f);
+
 void printGTKNoteArray(gtkNoteArray *f);
 void printGTKNote(gtkNote *f);
 void printNote(note *f);
+
+void addGTKNote(gtkNoteArray *notes, gtkNote *note);
 
 #endif

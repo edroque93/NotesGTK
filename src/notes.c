@@ -32,3 +32,10 @@ void printGTKNote(gtkNote *f) {
 }
 
 void printNote(note *f) { printf("%s\n", f->text); }
+
+void addGTKNote(gtkNoteArray *notes, gtkNote *note) {
+  notes->array = (gtkNote **)realloc(notes->array,
+                                     (notes->length + 2) * sizeof(gtkNote *));
+  notes->array[notes->length++] = note;
+  notes->array[notes->length] = NULL;
+}
